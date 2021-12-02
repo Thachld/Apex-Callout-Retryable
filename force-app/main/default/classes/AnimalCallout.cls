@@ -18,9 +18,9 @@ public with sharing class AnimalCallout extends Retryable {
 
         HttpResponse response = http.send(request);
         Integer httpResponseCode = response.getStatusCode();
-        if(httpResponseCode == 200){
-
+        if(httpResponseCode == 200){            
             System.debug('response.getBody()=>' + response.getBody());
+            // return JobResult.success(response.getBody());
             return JobResult.retry(response.getBody());
         }else {
             System.debug('response.getBody()=>' + response.getBody());

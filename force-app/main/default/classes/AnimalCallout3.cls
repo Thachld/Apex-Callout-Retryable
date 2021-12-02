@@ -1,8 +1,8 @@
-public with sharing class AnimalCallout2 extends Retryable {
-    private Logger log = new Logger(AnimalCallout2.class.getName());
+public with sharing class AnimalCallout3 extends Retryable {
+    private Logger log = new Logger(AnimalCallout3.class.getName());
     private Set<String> setIds {get;set;}
 
-    public AnimalCallout2(Set<String> pSetIds) {
+    public AnimalCallout3(Set<String> pSetIds) {
         firstExecution = Datetime.now();
         retryScheduleInMinutes = new List<Integer>{
             5, 10, 15, 20

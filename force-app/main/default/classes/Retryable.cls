@@ -26,7 +26,10 @@ public abstract class Retryable implements Queueable, Database.AllowsCallouts {
     protected abstract JobResult startJob();
 
     private void insertJob(JobResult result) {
-        insert new RetryableJob__c(
+        System.debug('result.status=>' + result.status);
+        System.debug('Retryable.Status.FAILED_RETRY=>' + Retryable.Status.FAILED_RETRY);
+        if(result.status == Retryable.Status.FAILED_RETRY){
+            insert new RetryableJob__c(
                 serializedJob__c = JSON.serialize(this),
                 className__c = String.valueOf(this).split(':')[0],
                 firstTry__c = System.now(),
@@ -37,7 +40,8 @@ public abstract class Retryable implements Queueable, Database.AllowsCallouts {
                         : null,
                 message__c = result.message,
                 status__c = result.status.name()
-        );
+            );
+        }        
     }
 
     public Datetime getFirstExecution() {
